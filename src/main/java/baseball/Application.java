@@ -14,8 +14,9 @@ public class Application {
         OutputView outputView = new OutputView();
         ComputerNumber computerNumber = new ComputerNumber();
         ClientNumber clientNumber = new ClientNumber();
+        RestartNumber restartNumber = new RestartNumber();
 
-        BaseballGameController ctrl = new BaseballGameController(inputView, outputView, computerNumber, clientNumber);
+        BaseballGameController ctrl = new BaseballGameController(inputView, outputView, computerNumber, clientNumber, restartNumber);
         ctrl.startGame();
     }
 }
