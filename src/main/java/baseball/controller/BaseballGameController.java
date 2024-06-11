@@ -23,16 +23,22 @@ public class BaseballGameController {
         outputView.printGameStartMessage();
 
         String restartOption;
-        do {
-            // 게임 초기화
-            computerNumber.setComputerNumber();
+        try {
+            do {
+                // 게임 초기화
+                computerNumber.setComputerNumber();
 
-            // 게임 실행
-            playGame();
+                // 게임 실행
+                playGame();
 
-            // 게임 종료 후 재시작 여부 확인
-            restartOption = inputView.getActionInput();
-        } while(restartOption.equals("1"));
+                // 게임 종료 후 재시작 여부 확인
+                restartOption = inputView.getActionInput();
+
+            } while (restartOption.equals("1"));
+        }
+        catch (IllegalArgumentException e) {
+            throw e;
+        }
     }
 
     private void playGame() {
@@ -56,8 +62,7 @@ public class BaseballGameController {
                 }
             }
             catch (IllegalArgumentException e) {
-                outputView.printGameSetMessage();
-                gameEnded = true;
+                throw e;
             }
         }
     }

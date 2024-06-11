@@ -9,13 +9,17 @@ public class RestartNumber {
         this.restartNumber = number;
     }
 
+    public RestartNumber() {
+        this.restartNumber = "1";
+    }
+
     public String getRestartNumber() {
         return restartNumber;
     }
 
     public void validateActionInput(String number) {
         if(!number.equals("1") && !number.equals("2")) {
-            throw new IllegalArgumentException("ERROR: 잘못된 입력");
+            throw new IllegalArgumentException("ERROR: 종료 및 재시작 입력이 잘못 되었습니다.");
         }
     }
 }

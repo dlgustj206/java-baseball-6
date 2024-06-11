@@ -1,7 +1,5 @@
 package baseball.view;
 
-import baseball.model.ClientNumber;
-import baseball.model.RestartNumber;
 import camp.nextstep.edu.missionutils.Console;
 
 public class InputView {
