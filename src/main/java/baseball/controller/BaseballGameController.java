@@ -11,9 +11,8 @@ public class BaseballGameController {
     private final InputView inputView;
     private final OutputView outputView;
     private final ComputerNumber computerNumber;
-    private final ClientNumber clientNumber;
+    private ClientNumber clientNumber;
     private RestartNumber restartNumber;
-
 
     public BaseballGameController(InputView inputView, OutputView outputView, ComputerNumber computerNumber,
                                   ClientNumber clientNumber, RestartNumber restartNumber) {
@@ -43,9 +42,9 @@ public class BaseballGameController {
         boolean gameEnded = false;
 
         while (!gameEnded) {
-            String userNumber = inputView.setUserNumber();
             try {
-                clientNumber.validateClientNumber(userNumber);
+                String userNumber = inputView.setUserNumber();
+                clientNumber = new ClientNumber(userNumber);
 
                 // 게임 로직 처리
                 int strikes = countStrikes(userNumber);
@@ -59,21 +58,19 @@ public class BaseballGameController {
                     gameEnded = true;
                 }
             } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());  // 예외 메시지 출력
-                System.exit(1);  // 프로그램 종료
+                System.out.println(e.getMessage());
+                gameEnded = true;
             }
         }
     }
 
     private void getRestartOption() {
-        while (true) {
-            try {
-                String actionInput = inputView.getActionInput();
-                restartNumber = new RestartNumber(actionInput);
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());  // 예외 메시지 출력
-            }
+        try {
+            String actionInput = inputView.getActionInput();
+            restartNumber = new RestartNumber(actionInput);
+
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());  // 예외 메시지 출력
         }
     }
 
@@ -98,4 +95,3 @@ public class BaseballGameController {
         return balls;
     }
 }
-
