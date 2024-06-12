@@ -8,9 +8,7 @@ public class ClientNumber {
     private final String clientNumber;
 
     public ClientNumber(String number) {
-        isStringLengthCorrect(number);
-        isValidDigitClientNumber(number);
-        hasNoDuplicateNumber(number);
+        validateClientNumber(number);
         this.clientNumber = number;
     }
 
@@ -22,22 +20,18 @@ public class ClientNumber {
         return clientNumber;
     }
 
-    public void isStringLengthCorrect(String number) {
+    public void validateClientNumber(String number) {
         if(number.length() != 3) {
             throw new IllegalArgumentException("ERROR: 입력값은 3자리여야 합니다.");
         }
-    }
 
-    public void isValidDigitClientNumber(String number) {
         for(int i = 0; i < number.length(); i++) {
             char c = number.charAt(i);
             if(c < '1' || c > '9') {
                 throw new IllegalArgumentException("ERROR: 입력값은 1에서 9 사이의 숫자여야 합니다.");
             }
         }
-    }
 
-    public void hasNoDuplicateNumber(String number) {
         Set<Character> set = new HashSet<>();
         for (char c : number.toCharArray()) {
             if (set.contains(c)) {
