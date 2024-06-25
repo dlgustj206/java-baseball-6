@@ -12,15 +12,13 @@ public class BaseballGameController {
     private final OutputView outputView;
     private final ComputerNumber computerNumber;
     private ClientNumber clientNumber;
-    private RestartNumber restartNumber;
 
     public BaseballGameController(InputView inputView, OutputView outputView, ComputerNumber computerNumber,
-                                  ClientNumber clientNumber, RestartNumber restartNumber) {
+                                  ClientNumber clientNumber) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.computerNumber = computerNumber;
         this.clientNumber = clientNumber;
-        this.restartNumber = restartNumber;
     }
 
     public void startGame() {
@@ -30,12 +28,12 @@ public class BaseballGameController {
             // 게임 초기화
             computerNumber.setComputerNumber();
 
-            // 게임 실행
-            playGame();
-
-            // 게임 종료 후 재시작 여부 확인
-            getRestartOption();
-        } while (restartNumber.getRestartNumber().equals("1"));
+            try {
+                playGame();
+            } catch (IllegalArgumentException e) {
+                return;
+            }
+        } while (getRestartOption());
     }
 
     private void playGame() {
@@ -59,19 +57,15 @@ public class BaseballGameController {
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
-                gameEnded = true;
+                throw new IllegalArgumentException();
             }
         }
     }
 
-    private void getRestartOption() {
-        try {
-            String actionInput = inputView.getActionInput();
-            restartNumber = new RestartNumber(actionInput);
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());  // 예외 메시지 출력
-        }
+    private boolean getRestartOption() {
+        return new RestartNumber(inputView.getActionInput())
+                .getRestartNumber()
+                .equals("1");
     }
 
     private int countStrikes(String userNumber) {
