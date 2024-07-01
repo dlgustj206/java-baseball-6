@@ -18,10 +18,6 @@ public class ClientNumber {
         this.clientNumber = "123";
     }
 
-    public String getClientNumber() {
-        return clientNumber;
-    }
-
     public void isStringLengthCorrect(String number) {
         if(number.length() != 3) {
             throw new IllegalArgumentException("ERROR: 입력값은 3자리여야 합니다.");
