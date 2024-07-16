@@ -1,5 +1,8 @@
 package baseball.model;
 
+import baseball.utils.RestartNumberValidator;
+import baseball.utils.ValidationError;
+
 public class RestartNumber {
 
     private final String restartNumber;
@@ -14,8 +17,10 @@ public class RestartNumber {
     }
 
     public void validateActionInput(String number) {
-        if(!number.equals("1") && !number.equals("2")) {
-            throw new IllegalArgumentException("ERROR: 종료 및 재시작 입력이 잘못 되었습니다.");
+        try {
+            RestartNumberValidator.validateRestartNumber(number);
+        } catch (ValidationError e) {
+            throw new IllegalArgumentException(e.getMessage());
         }
     }
 }
