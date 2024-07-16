@@ -2,7 +2,7 @@ package baseball;
 
 import baseball.controller.BaseballGameController;
 import baseball.model.ClientNumber;
-import baseball.model.ComputerNumber;
+import baseball.model.AnswerNumber;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 
@@ -11,7 +11,7 @@ public class Application {
         // TODO: 프로그램 구현
         InputView inputView = new InputView();
         OutputView outputView = new OutputView();
-        ComputerNumber computerNumber = new ComputerNumber();
+        AnswerNumber computerNumber = new AnswerNumber();
         ClientNumber clientNumber = new ClientNumber();
 
         BaseballGameController ctrl = new BaseballGameController(inputView, outputView, computerNumber, clientNumber);

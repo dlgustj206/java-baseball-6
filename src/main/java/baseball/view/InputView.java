@@ -2,6 +2,9 @@ package baseball.view;
 
 import camp.nextstep.edu.missionutils.Console;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InputView {
 
     public String getActionInput() {
@@ -10,9 +13,17 @@ public class InputView {
         return action;
     }
 
-    public String setUserNumber() {
+    public List<Integer> setUserNumber() {
         System.out.print("숫자를 입력해주세요: ");
         String num = Console.readLine();
-        return num;
+        return convertStringToList(num);
+    }
+
+    private List<Integer> convertStringToList(String input) {
+        List<Integer> numberList = new ArrayList<>();
+        for (char c : input.toCharArray()) {
+            numberList.add(Character.getNumericValue(c));
+        }
+        return numberList;
     }
 }

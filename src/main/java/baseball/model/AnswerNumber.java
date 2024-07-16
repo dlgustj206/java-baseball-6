@@ -7,13 +7,13 @@ import java.util.List;
 
 public class AnswerNumber {
 
-    private String answerNumber;
+    private List<Integer> answerNumber;
 
     public AnswerNumber() {
         setAnswerNumber();
     }
 
-    public String setAnswerNumber() {
+    public List<Integer> setAnswerNumber() {
         List<Integer> answer = new ArrayList<>();
         while (answer.size() < 3) {
             int randomNumber = Randoms.pickNumberInRange(1, 9);
@@ -21,11 +21,6 @@ public class AnswerNumber {
                 answer.add(randomNumber);
             }
         }
-
-        String number = "";
-        for(int num : answer) {
-            number += num;
-        }
-        return number;
+        return answer;
     }
 }

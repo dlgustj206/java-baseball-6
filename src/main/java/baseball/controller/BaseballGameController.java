@@ -1,32 +1,33 @@
 package baseball.controller;
 
 import baseball.model.ClientNumber;
-import baseball.model.ComputerNumber;
+import baseball.model.AnswerNumber;
 import baseball.model.RestartNumber;
 import baseball.view.InputView;
 import baseball.view.OutputView;
+
+import java.util.List;
 
 public class BaseballGameController {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final ComputerNumber computerNumber;
+    private final AnswerNumber computerNumber;
     private final ClientNumber clientNumber;
 
-    public BaseballGameController(InputView inputView, OutputView outputView, ComputerNumber computerNumber, ClientNumber clientNumber) {
+    public BaseballGameController(InputView inputView, OutputView outputView, AnswerNumber computerNumber, ClientNumber clientNumber) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.computerNumber = computerNumber;
         this.clientNumber = clientNumber;
     }
 
-    public void
-    startGame() {
+    public void startGame() {
         outputView.printGameStartMessage();
 
         do {
             // 게임 초기화
-            String answer = computerNumber.setComputerNumber();
+            List<Integer> answer = computerNumber.setAnswerNumber();
 
             try {
                 playGame(answer);
@@ -37,11 +38,11 @@ public class BaseballGameController {
     }
 
 
-    private void playGame(String answer) {
+    private void playGame(List<Integer> answer) {
         boolean gameEnded = false;
 
         while (!gameEnded) {
-            String userNumber = inputView.setUserNumber();
+            List<Integer> userNumber = inputView.setUserNumber();
             clientNumber.validateClientNumber(userNumber);
 
             // 게임 로직 처리
@@ -52,7 +53,6 @@ public class BaseballGameController {
             outputView.printGameResult(strikes, balls);
 
             if (strikes == 3) {
-                outputView.printGameSetMessage();
                 gameEnded = true;
             }
 
@@ -65,21 +65,21 @@ public class BaseballGameController {
                 .equals("1");
     }
 
-    private int countStrikes(String answer, String userNumber) { // count
+    private int countStrikes(List<Integer> answer, List<Integer> userNumber) {
         int strikes = 0;
-        for (int i = 0; i < userNumber.length(); i++) {
-            if (userNumber.charAt(i) == answer.charAt(i)) {
+        for (int i = 0; i < userNumber.size(); i++) {
+            if (userNumber.get(i).equals(answer.get(i))) {
                 strikes++;
             }
         }
         return strikes;
     }
 
-    private int countBalls(String answer, String userNumber) {
+    private int countBalls(List<Integer> answer, List<Integer> userNumber) {
         int balls = 0;
-        for (int i = 0; i < userNumber.length(); i++) {
-            char num = userNumber.charAt(i);
-            if (answer.contains(String.valueOf(num)) && answer.indexOf(num) != i) {
+        for (int i = 0; i < userNumber.size(); i++) {
+            int num = userNumber.get(i);
+            if (answer.contains(num) && !userNumber.get(i).equals(answer.get(i))) {
                 balls++;
             }
         }
