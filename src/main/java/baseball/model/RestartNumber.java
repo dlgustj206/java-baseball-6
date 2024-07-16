@@ -19,6 +19,9 @@ public class RestartNumber {
     public void validateActionInput(String number) {
         try {
             RestartNumberValidator.validateRestartNumber(number);
+            if (number.equals("2")) {
+                System.out.println("게임 종료");
+            }
         } catch (ValidationError e) {
             throw new IllegalArgumentException(e.getMessage());
         }
