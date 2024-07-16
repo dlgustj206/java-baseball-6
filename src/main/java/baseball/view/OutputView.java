@@ -6,10 +6,6 @@ public class OutputView {
         System.out.println("숫자 야구 게임을 시작합니다.");
     }
 
-    public void printGameSetMessage() {
-        System.out.println("게임 종료");
-    }
-
     public void printGameResult(int strikes, int balls) {
         if(strikes > 0 && balls > 0) {
             System.out.println(balls + "볼 " + strikes + "스트라이크");

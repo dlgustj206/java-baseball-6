@@ -12,13 +12,13 @@ public class BaseballGameController {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final AnswerNumber computerNumber;
+    private final AnswerNumber answerNumber;
     private final ClientNumber clientNumber;
 
-    public BaseballGameController(InputView inputView, OutputView outputView, AnswerNumber computerNumber, ClientNumber clientNumber) {
+    public BaseballGameController(InputView inputView, OutputView outputView, AnswerNumber answerNumber, ClientNumber clientNumber) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.computerNumber = computerNumber;
+        this.answerNumber = answerNumber;
         this.clientNumber = clientNumber;
     }
 
@@ -27,7 +27,7 @@ public class BaseballGameController {
 
         do {
             // 게임 초기화
-            List<Integer> answer = computerNumber.setAnswerNumber();
+            List<Integer> answer = answerNumber.setAnswerNumber();
 
             try {
                 playGame(answer);
