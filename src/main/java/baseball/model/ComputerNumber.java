@@ -13,10 +13,6 @@ public class ComputerNumber {
         setComputerNumber();
     }
 
-    public String getComputerNumber() {
-        return computerNumber;
-    }
-
     public String setComputerNumber() {
         List<Integer> computer = new ArrayList<>();
         while (computer.size() < 3) {

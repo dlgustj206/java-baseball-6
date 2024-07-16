@@ -3,7 +3,6 @@ package baseball;
 import baseball.controller.BaseballGameController;
 import baseball.model.ClientNumber;
 import baseball.model.ComputerNumber;
-import baseball.model.RestartNumber;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 

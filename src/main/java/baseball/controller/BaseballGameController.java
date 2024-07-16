@@ -11,54 +11,51 @@ public class BaseballGameController {
     private final InputView inputView;
     private final OutputView outputView;
     private final ComputerNumber computerNumber;
-    private ClientNumber clientNumber;
+    private final ClientNumber clientNumber;
 
-    public BaseballGameController(InputView inputView, OutputView outputView, ComputerNumber computerNumber,
-                                  ClientNumber clientNumber) {
+    public BaseballGameController(InputView inputView, OutputView outputView, ComputerNumber computerNumber, ClientNumber clientNumber) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.computerNumber = computerNumber;
         this.clientNumber = clientNumber;
     }
 
-    public void startGame() {
+    public void
+    startGame() {
         outputView.printGameStartMessage();
 
         do {
             // 게임 초기화
-            computerNumber.setComputerNumber();
+            String answer = computerNumber.setComputerNumber();
 
             try {
-                playGame();
+                playGame(answer);
             } catch (IllegalArgumentException e) {
-                return;
+                throw new IllegalArgumentException(e.getMessage());
             }
         } while (getRestartOption());
     }
 
-    private void playGame() {
+
+    private void playGame(String answer) {
         boolean gameEnded = false;
 
         while (!gameEnded) {
-            try {
-                String userNumber = inputView.setUserNumber();
-                clientNumber = new ClientNumber(userNumber);
+            String userNumber = inputView.setUserNumber();
+            clientNumber.validateClientNumber(userNumber);
 
-                // 게임 로직 처리
-                int strikes = countStrikes(userNumber);
-                int balls = countBalls(userNumber);
+            // 게임 로직 처리
+            int strikes = countStrikes(answer, userNumber);
+            int balls = countBalls(answer, userNumber);
 
-                // 결과 출력
-                outputView.printGameResult(strikes, balls);
+            // 결과 출력
+            outputView.printGameResult(strikes, balls);
 
-                if (strikes == 3) {
-                    outputView.printGameSetMessage();
-                    gameEnded = true;
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-                throw new IllegalArgumentException();
+            if (strikes == 3) {
+                outputView.printGameSetMessage();
+                gameEnded = true;
             }
+
         }
     }
 
@@ -68,21 +65,21 @@ public class BaseballGameController {
                 .equals("1");
     }
 
-    private int countStrikes(String userNumber) {
+    private int countStrikes(String answer, String userNumber) { // count
         int strikes = 0;
         for (int i = 0; i < userNumber.length(); i++) {
-            if (userNumber.charAt(i) == computerNumber.getComputerNumber().charAt(i)) {
+            if (userNumber.charAt(i) == answer.charAt(i)) {
                 strikes++;
             }
         }
         return strikes;
     }
 
-    private int countBalls(String userNumber) {
+    private int countBalls(String answer, String userNumber) {
         int balls = 0;
         for (int i = 0; i < userNumber.length(); i++) {
             char num = userNumber.charAt(i);
-            if (computerNumber.getComputerNumber().contains(String.valueOf(num)) && computerNumber.getComputerNumber().indexOf(num) != i) {
+            if (answer.contains(String.valueOf(num)) && answer.indexOf(num) != i) {
                 balls++;
             }
         }

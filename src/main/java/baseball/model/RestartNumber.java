@@ -9,10 +9,6 @@ public class RestartNumber {
         this.restartNumber = number;
     }
 
-    public RestartNumber() {
-        this.restartNumber = "1";
-    }
-
     public String getRestartNumber() {
         return restartNumber;
     }
