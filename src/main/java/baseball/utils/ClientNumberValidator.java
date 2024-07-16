@@ -3,7 +3,7 @@ package baseball.utils;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Validator {
+public class ClientNumberValidator {
 
     public static void validateUserNumber(String number) {
         isStringLengthCorrect(number);

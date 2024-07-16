@@ -1,7 +1,7 @@
 package baseball.model;
 
 import baseball.utils.ValidationError;
-import baseball.utils.Validator;
+import baseball.utils.ClientNumberValidator;
 
 public class ClientNumber {
 
@@ -9,7 +9,7 @@ public class ClientNumber {
 
     public void validateClientNumber(String number) {
         try {
-            Validator.validateUserNumber(number);
+            ClientNumberValidator.validateUserNumber(number);
         } catch (ValidationError e) {
             throw new IllegalArgumentException(e.getMessage());
         }
